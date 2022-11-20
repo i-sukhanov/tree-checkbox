@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <tree-node v-for="node in data" :key="node.id" :node="node" />
+    <tree-node
+      v-for="node in treeData"
+      :key="node.id"
+      :node="node"
+      @node:updateState="updateNodeState"
+    />
   </div>
 </template>
 
@@ -8,28 +13,55 @@
 import TreeNode from '@/components/TreeNode.vue';
 import { ref } from 'vue';
 import { Node } from './types';
+import { nanoid } from 'nanoid';
 
-const data = ref<Node[]>([
+const treeData = ref<Node[]>([
   {
-    id: Date.now(),
+    id: nanoid(),
     label: 'root',
     checked: false,
     children: [
-      { id: Date.now(), label: '1 first level child', checked: false },
-      { id: Date.now(), label: '2 first level child', checked: false },
+      { id: nanoid(), label: '1 first level child', checked: false },
       {
-        id: Date.now(),
-        label: '3 first level child',
+        id: nanoid(),
+        label: '2 first level child',
         checked: false,
         children: [
-          { id: Date.now(), label: '1 second level child', checked: false },
-          { id: Date.now(), label: '2 second level child', checked: false },
-          { id: Date.now(), label: '3 second level child', checked: false },
+          { id: nanoid(), label: '1 first level child', checked: false },
+          { id: nanoid(), label: '2 first level child', checked: false },
+          { id: nanoid(), label: '1 first level child', checked: false },
+          {
+            id: nanoid(),
+            label: '1 first second child',
+            checked: false,
+            children: [
+              { id: nanoid(), label: '1 third level child', checked: false },
+              { id: nanoid(), label: '2 third level child', checked: false },
+              { id: nanoid(), label: '3 third level child', checked: false },
+              { id: nanoid(), label: '4 third level child', checked: false },
+              { id: nanoid(), label: '5 third level child', checked: false },
+              { id: nanoid(), label: '6 third level child', checked: false },
+            ],
+          },
         ],
       },
     ],
   },
 ]);
+
+const updateNodeState = (node: Node) => {
+  const updateTreeData = (arrNode: Node[]) => {
+    arrNode.forEach((n) => {
+      if (n.id === node.id) {
+        n = node;
+      } else if (n.children) {
+        updateTreeData(n.children);
+      }
+    });
+  };
+
+  updateTreeData(treeData.value);
+};
 </script>
 
 <style scoped>

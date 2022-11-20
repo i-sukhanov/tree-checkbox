@@ -1,5 +1,5 @@
 export type Node = {
-  id: number;
+  id: string;
   children?: Node[];
   label: string;
   checked: boolean;
