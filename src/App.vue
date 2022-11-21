@@ -64,7 +64,12 @@ const updateNodeState = (node: Node) => {
 };
 </script>
 
-<style scoped>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #2c3e50;
