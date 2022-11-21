@@ -1,6 +1,6 @@
 # Tree-checkbox component
 
-A simple component that represent nested data in a checkbox-tree.
+A simple component that represents nested data in a checkbox-tree.
 
 ## Project setup
 
